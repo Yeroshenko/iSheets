@@ -9,7 +9,24 @@
 </head>
 
 <body>
-  <div id='app' class='container'></div>
+  <div id='app'>
+    <div class='spreadsheet'>
+      <div class='spreadsheet__header'>
+        <input class="spreadsheet__header-input" type='text' value='Новая таблица' />
+        <div class="spreadsheet__header-buttons">
+          <button class='spreadsheet__header-button'>
+            remove icon
+          </button>
+          <button class='spreadsheet__header-button'>
+            logout icon
+          </button>
+        </div>
+      </div>
+      <div class='spreadsheet__toolbar'></div>
+      <div class='spreadsheet__formula'></div>
+      <div class='spreadsheet__workspace'></div>
+    </div>
+  </div>
 </body>
 
 </html>
