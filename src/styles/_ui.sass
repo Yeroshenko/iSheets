@@ -2,8 +2,11 @@
 
 .button
   position: relative
-  padding: 8px 12px
+  min-height: 32px
   display: inline-block
+  padding: 0 12px
+  line-height: 32px
+  font-weight: 600
   background-color: rgba($black, .08)
   border: none
   border-radius: $base-border-radius
@@ -18,9 +21,12 @@
 
 .button_icon
   @extend .button
-  padding: 6px
-  width: 32px
-  height: 32px
+  padding: 0 6px
+
+  .material-icons
+    display: flex
+    align-items: center
+    justify-content: center
 
 .button_transparent
   background-color: rgba($black, .04)
