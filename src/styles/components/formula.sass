@@ -1,0 +1,24 @@
+@import '../variables'
+@import '../mixins'
+@import '../ui'
+
+.spreadsheet__formula
+  display: flex
+  align-items: center
+  flex-direction: row
+  border-bottom: 1px solid $grey
+
+.spreadsheet__formula-label
+  font-size: 20px
+  line-height: 24px
+  text-align: center
+  font-style: italic
+  font-weight: bold
+  border-right: 1px solid $grey
+  min-width: $info-cell-width
+  opacity: .6
+
+.spreadsheet__formula-input
+  width: 100%
+  padding: 4px 8px
+  outline: none

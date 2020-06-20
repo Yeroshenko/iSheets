@@ -1,0 +1,51 @@
+@import '../variables'
+@import '../mixins'
+
+.workspace
+  padding-bottom: 2px
+  overflow: auto
+
+.workspace__row
+  display: flex
+  height: 100%
+  height: $row-height
+
+.workspace__row-info
+  height: 100%
+  min-width: $info-cell-width
+  display: flex
+  justify-content: center
+  align-items: center
+  background-color: #F8F9FA
+  border: 1px solid $grey
+  border-top: none
+
+.workspace__row-data
+  display: flex
+
+.workspace__row-column
+  width: $cell-width
+  height: 100%
+  display: flex
+  justify-content: center
+  align-items: center
+  background-color: #F8F9FA
+  border: 1px solid $grey
+  border-top: 0
+  border-left: 0
+
+.workspace__row-cell
+  height: 100%
+  width: $cell-width
+  min-width: 40px
+  padding: 4px
+  border: 1px solid #E2E3E3
+  border-top: 0
+  border-left: 0
+  white-space: nowrap
+  outline: none
+  z-index: 2
+
+  &.selected
+    border: none
+    outline: 2px solid #3C74FF

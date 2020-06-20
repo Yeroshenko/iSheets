@@ -1,0 +1,32 @@
+@import '../variables'
+@import '../mixins'
+@import '../ui'
+
+.spreadsheet__header
+  padding: 8px
+  display: flex
+  justify-content: space-between
+  border-bottom: 1px solid $grey
+
+.spreadsheet__header-input
+  height: 32px
+  margin: 0
+  padding: 0 8px
+  color: $black
+  font-weight: 700
+  font-size: 20px
+  border: 1px solid transparent
+  border-radius: $base-border-radius
+
+  &:hover
+    border-color: $grey
+
+  &:focus
+    border: $black
+
+.spreadsheet__header-buttons
+  display: flex
+
+.spreadsheet__header-button
+  @extend .button
+  margin-left: 4px

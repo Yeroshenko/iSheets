@@ -1,0 +1,38 @@
+@import 'variables'
+
+.button
+  position: relative
+  min-height: 32px
+  display: inline-block
+  padding: 0 12px
+  line-height: 32px
+  font-weight: 600
+  background-color: rgba($black, .08)
+  border: none
+  border-radius: $base-border-radius
+  transition: .2s all ease
+  cursor: pointer
+
+  &:hover
+    background-color: rgba($black,.16)
+
+  &:active
+    background-color: rgba($black,.24)
+
+.button_icon
+  @extend .button
+  padding: 0 6px
+
+  .material-icons
+    display: flex
+    align-items: center
+    justify-content: center
+
+.button_transparent
+  background-color: rgba($black, .04)
+
+  &:hover
+    background-color: rgba($black, .08)
+
+  &:active
+    background-color: rgba($black,.16)
