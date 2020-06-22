@@ -1,16 +1,16 @@
 @import '../variables'
 @import '../mixins'
 
-.workspace
+.table
   padding-bottom: 2px
   overflow: auto
 
-.workspace__row
+.table__row
   display: flex
   height: 100%
   height: $row-height
 
-.workspace__row-info
+.table__row-info
   height: 100%
   min-width: $info-cell-width
   display: flex
@@ -20,10 +20,10 @@
   border: 1px solid $grey
   border-top: none
 
-.workspace__row-data
+.table__row-data
   display: flex
 
-.workspace__row-column
+.table__row-column
   width: $cell-width
   height: 100%
   display: flex
@@ -34,7 +34,7 @@
   border-top: 0
   border-left: 0
 
-.workspace__row-cell
+.table__row-cell
   height: 100%
   width: $cell-width
   min-width: 40px

@@ -1,3 +1,8 @@
+import { Spreadsheet, Header, Toolbar, Formula, Tabble } from '@components'
 import './styles/index.sass'
 
-console.log('Hello world!')
+const spreadsheet = new Spreadsheet('#app', {
+  components: [Header, Toolbar, Formula, Tabble]
+})
+
+spreadsheet.render()

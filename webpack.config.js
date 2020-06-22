@@ -8,13 +8,14 @@ const CopyPlugin = require('copy-webpack-plugin')
 const isProd = process.env.NODE_ENV === 'production'
 const isDev = !isProd
 
-const filename = ext => isDev ? `bundle.${ext}`: `bundle.[hash].${ext}`
+const filename = ext => (isDev ? `bundle.${ext}` : `bundle.[hash].${ext}`)
 const jsLoaders = () => {
   const loaders = [
     {
       loader: 'babel-loader',
       options: {
-        presets: ['@babel/preset-env']
+        presets: ['@babel/preset-env'],
+        plugins: ['@babel/plugin-proposal-class-properties']
       }
     }
   ]
@@ -36,10 +37,11 @@ module.exports = {
     extensions: ['.js'],
     alias: {
       '@': path.resolve(__dirname, 'src'),
-      '@core': path.resolve(__dirname, 'core')
+      '@core': path.resolve(__dirname, 'src/core'),
+      '@components': path.resolve(__dirname, 'src/components')
     }
   },
-  devtool: isDev ? 'source-map': false,
+  devtool: isDev ? 'source-map' : false,
   devServer: {
     port: 4200,
     hot: isDev
@@ -53,10 +55,12 @@ module.exports = {
       template: 'index.html'
     }),
     new CopyPlugin({
-      patterns: [{
-        from: path.resolve(__dirname, 'src/favicon.ico'),
-        to: path.resolve(__dirname, 'build')
-      }],
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'src/favicon.ico'),
+          to: path.resolve(__dirname, 'build')
+        }
+      ]
     }),
     new MiniCssExtractPlugin({
       filename: filename('css')
@@ -75,13 +79,14 @@ module.exports = {
             }
           },
           'css-loader',
-          'sass-loader',
-        ],
+          'sass-loader'
+        ]
       },
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: jsLoaders(),
-      }],
+        use: jsLoaders()
+      }
+    ]
   }
 }
