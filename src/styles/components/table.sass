@@ -1,14 +1,24 @@
 @import '../variables'
 @import '../mixins'
 
+
+.spreadsheet__table
+  overflow: hidden
+  flex: 1 1
+
 .table
   padding-bottom: 2px
   overflow: auto
+  height: 100%
+  width: 100%
 
 .table__row
   display: flex
   height: 100%
   height: $row-height
+  &:first-child
+    position: sticky
+    top: 0
 
 .table__row-info
   height: 100%
@@ -17,7 +27,7 @@
   justify-content: center
   align-items: center
   background-color: #F8F9FA
-  border: 1px solid $grey
+  border: 1px solid $grey-100
   border-top: none
 
 .table__row-data
@@ -30,7 +40,7 @@
   justify-content: center
   align-items: center
   background-color: #F8F9FA
-  border: 1px solid $grey
+  border: 1px solid $grey-100
   border-top: 0
   border-left: 0
 
@@ -44,7 +54,6 @@
   border-left: 0
   white-space: nowrap
   outline: none
-  z-index: 2
 
   &.selected
     border: none
