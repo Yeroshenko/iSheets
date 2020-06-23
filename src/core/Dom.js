@@ -18,7 +18,13 @@ class Dom {
     return this
   }
 
-  on() {}
+  on(eventType, callback) {
+    this.$el.addEventListener(eventType, callback)
+  }
+
+  off(eventType, callback) {
+    this.$el.removeEventListener(eventType, callback)
+  }
 
   // ParentNode.appendChild() 2.0
   append(node) {
@@ -36,7 +42,6 @@ class Dom {
 
 // event.target
 export const $ = selector => {
-  console.log(new Dom(selector))
   return new Dom(selector)
 }
 
