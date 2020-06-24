@@ -8,14 +8,21 @@ const createCell = () => {
 
 const createCol = col => {
   return `
-    <div class='table__row-column'>${col}</div>
+    <div class='table__row-column column'>
+      ${col}
+      <div class='column__resize'></div>
+    </div>
   `
 }
 
 const createRow = (index, content) => {
+  const resize = index ? `<div class='row__resize'></div>` : ''
   return `
-    <div class='table__row'>
-      <div class='table__row-info'>${index ? index : ''}</div>
+    <div class='table__row row'>
+      <div class='table__row-info'>
+        ${index ? index : ''}
+        ${resize}
+      </div>
       <div class='table__row-data'>${content}</div>
     </div>
   `
