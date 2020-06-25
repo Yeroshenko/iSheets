@@ -17,26 +17,51 @@ class Dom {
     this.html('')
     return this
   }
-
+  // addEventListener 2.0
   on(eventType, callback) {
     this.$el.addEventListener(eventType, callback)
   }
 
+  // removeEventListener 2.0
   off(eventType, callback) {
     this.$el.removeEventListener(eventType, callback)
   }
 
   // ParentNode.appendChild() 2.0
   append(node) {
-    if (node instanceof Dom) {
-      node = node.$el
-    }
+    if (node instanceof Dom) node = node.$el
 
     Element.prototype.append
       ? this.$el.append(node)
       : this.$el.appendChild(node)
 
     return this
+  }
+
+  get data() {
+    return this.$el.dataset
+  }
+
+  closest(selector) {
+    return $(this.$el.closest(selector))
+  }
+
+  getCoords() {
+    return this.$el.getBoundingClientRect()
+  }
+
+  findAll(selector) {
+    return this.$el.querySelectorAll(selector)
+  }
+
+  css(styles = {}) {
+    Object.keys(styles).forEach(
+      styleName => (this.$el.style[styleName] = styles[styleName])
+    )
+  }
+
+  getStyle() {
+    return getComputedStyle(this.$el)
   }
 }
 

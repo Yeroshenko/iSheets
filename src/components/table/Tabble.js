@@ -1,5 +1,8 @@
 import { SpreadsheetComponent } from '@core'
+
 import { createTable } from './table.template'
+import { resizeHandler } from './table.resize'
+import { shouldResize } from './table.functions'
 
 export class Tabble extends SpreadsheetComponent {
   static className = 'spreadsheet__table'
@@ -7,27 +10,17 @@ export class Tabble extends SpreadsheetComponent {
   constructor($root) {
     super($root, {
       name: 'Table',
-      listeners: ['click', 'mousedown', 'mouseup', 'mousemove']
+      listeners: ['mousedown']
     })
   }
 
   toHTML() {
-    return createTable(128)
+    return createTable(64)
   }
 
-  onClick(e) {
-    console.log('--> click <--', e.target)
-  }
-
-  onMouseup() {
-    console.log('--> up <--')
-  }
-
-  onMousedown() {
-    console.log('--> down <--')
-  }
-
-  onMousemove() {
-    console.log('--> move <--')
+  onMousedown(event) {
+    if (shouldResize(event)) {
+      resizeHandler(event, this.$root)
+    }
   }
 }
