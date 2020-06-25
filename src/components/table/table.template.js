@@ -1,21 +1,31 @@
 const CODES = { A: 65, Z: 90 }
 
-const createCell = () => {
+const createCell = (_, col) => {
   return `
-    <div class='table__row-cell' contenteditable></div>
+    <div class='table__row-cell' contenteditable data-col='${col}'></div>
   `
 }
 
-const createCol = col => {
+const createCol = (col, index) => {
   return `
-    <div class='table__row-column'>${col}</div>
+    <div class='table__row-column column' data-type='resizable' data-col='${index}'>
+      ${col}
+      <div class='column__resize' data-resize='col'></div>
+    </div>
   `
 }
 
 const createRow = (index, content) => {
+  const resize = index
+    ? `<div class='row__resize' data-resize='row'></div>`
+    : ''
+
   return `
-    <div class='table__row'>
-      <div class='table__row-info'>${index ? index : ''}</div>
+    <div class='table__row row' data-type='resizable'>
+      <div class='table__row-info'>
+        ${index ? index : ''}
+        ${resize}
+      </div>
       <div class='table__row-data'>${content}</div>
     </div>
   `

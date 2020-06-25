@@ -14,13 +14,14 @@
 
 .table__row
   display: flex
-  height: 100%
   height: $row-height
-  &:first-child
-    position: sticky
-    top: 0
+  min-height: $row-height
+  // &:first-child
+  //   position: sticky
+  //   top: 0
 
 .table__row-info
+  position: relative
   height: 100%
   min-width: $info-cell-width
   display: flex
@@ -29,14 +30,15 @@
   background-color: #F8F9FA
   border: 1px solid $grey-100
   border-top: none
-  position: sticky
-  left: 0
+  user-select: none
 
 .table__row-data
   display: flex
 
 .table__row-column
+  position: relative
   width: $cell-width
+  min-width: $table-row-width
   height: 100%
   display: flex
   justify-content: center
@@ -45,11 +47,12 @@
   border: 1px solid $grey-100
   border-top: 0
   border-left: 0
+  user-select: none
 
 .table__row-cell
   height: 100%
   width: $cell-width
-  min-width: 40px
+  min-width: $table-row-width
   padding: 4px
   border: 1px solid #E2E3E3
   border-top: 0
@@ -60,3 +63,31 @@
   &.selected
     border: none
     outline: 2px solid #3C74FF
+
+.column__resize, .row__resize
+  position: absolute
+  background-color: $blue
+  opacity: 0
+  transition: .2s opacity ease
+  z-index: 10
+
+  &:hover
+    opacity: 1 !important
+
+.column__resize
+  top: 0
+  right: -1px
+  bottom: 0
+  width: $resize-size
+
+  &:hover
+    cursor: col-resize
+
+.row__resize
+  right: 0
+  left: 0
+  bottom: -1px
+  height: $resize-size
+
+  &:hover
+    cursor: row-resize
