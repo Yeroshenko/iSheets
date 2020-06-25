@@ -1,4 +1,5 @@
 import { $ } from '@core'
+import { cssValueToNumber } from './table.functions'
 
 export const resizeHandler = (event, $root) => {
   const $resizer = $(event.target)
@@ -12,6 +13,9 @@ export const resizeHandler = (event, $root) => {
   // default resizer styles
   const { right, bottom, opacity } = $resizer.getStyle()
 
+  const minCellWidth = cssValueToNumber($parent.getStyle().minWidth)
+  const minCellHeight = cssValueToNumber($parent.getStyle().minHeight)
+
   let delta
   let value
 
@@ -22,14 +26,18 @@ export const resizeHandler = (event, $root) => {
       delta = event.pageX - coords.right
       value = coords.width + delta
 
-      $resizer.css({ right: -delta + 'px' })
+      value >= minCellWidth
+        ? $resizer.css({ right: -delta + 'px' })
+        : (value = minCellWidth)
     }
 
     if (resizeType === 'row') {
       delta = event.pageY - coords.bottom
       value = coords.height + delta
 
-      $resizer.css({ bottom: -delta + 'px' })
+      value >= minCellHeight
+        ? $resizer.css({ bottom: -delta + 'px' })
+        : (value = minCellHeight)
     }
   }
 
