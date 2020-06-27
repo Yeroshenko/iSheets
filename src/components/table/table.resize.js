@@ -1,5 +1,4 @@
 import { $ } from '@core'
-import { cssValueToNumber } from './table.functions'
 
 export const resizeHandler = (event, $root) => {
   const $resizer = $(event.target)
@@ -13,8 +12,8 @@ export const resizeHandler = (event, $root) => {
   // default resizer styles
   const { right, bottom, opacity } = $resizer.getStyle()
 
-  const minCellWidth = cssValueToNumber($parent.getStyle().minWidth)
-  const minCellHeight = cssValueToNumber($parent.getStyle().minHeight)
+  const minCellWidth = parseInt($parent.getStyle().minWidth)
+  const minCellHeight = parseInt($parent.getStyle().minHeight)
 
   let delta
   let value

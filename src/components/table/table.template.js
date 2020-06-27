@@ -1,9 +1,11 @@
 const CODES = { A: 65, Z: 90 }
 
-const createCell = (_, col) => {
-  return `
-    <div class='table__row-cell' contenteditable data-col='${col}'></div>
-  `
+const createCell = row => {
+  return (_, col) => {
+    return `
+      <div class='table__row-cell' contenteditable data-col='${col}' data-id='${row}:${col}'></div>
+    `
+  }
 }
 
 const createCol = (col, index) => {
@@ -45,10 +47,10 @@ export const createTable = (rowsCount = 20) => {
 
   rows.push(createRow(null, cols))
 
-  for (let i = 0; i < rowsCount; i++) {
-    const cells = new Array(colsCount).fill('').map(createCell).join('')
+  for (let row = 0; row < rowsCount; row++) {
+    const cells = new Array(colsCount).fill('').map(createCell(row)).join('')
 
-    rows.push(createRow(i + 1, cells))
+    rows.push(createRow(row + 1, cells))
   }
 
   return tableWrap(rows.join(''), 'table')
