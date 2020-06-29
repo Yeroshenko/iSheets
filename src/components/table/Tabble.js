@@ -1,9 +1,9 @@
-import { SpreadsheetComponent } from '@core'
+import { SpreadsheetComponent, $ } from '@core'
 
 import { TableSelection } from './TableSelection'
 import { createTable } from './table.template'
 import { resizeHandler } from './table.resize'
-import { shouldResize } from './table.functions'
+import { shouldResize, isCell } from './table.functions'
 
 export class Tabble extends SpreadsheetComponent {
   static className = 'spreadsheet__table'
@@ -33,6 +33,13 @@ export class Tabble extends SpreadsheetComponent {
   onMousedown(event) {
     if (shouldResize(event)) {
       resizeHandler(event, this.$root)
+    }
+
+    if (isCell(event)) {
+      console.log(event.shiftKey)
+
+      const $cell = $(event.target)
+      this.selection.select($cell)
     }
   }
 }

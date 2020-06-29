@@ -3,7 +3,13 @@ const CODES = { A: 65, Z: 90 }
 const createCell = row => {
   return (_, col) => {
     return `
-      <div class='table__row-cell' contenteditable data-col='${col}' data-id='${row}:${col}'></div>
+      <div
+        class='table__row-cell'
+        contenteditable
+        data-type='cell'
+        data-col='${col}'
+        data-id='${row}:${col}'
+      ></div>
     `
   }
 }

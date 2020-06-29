@@ -1,2 +1,8 @@
+# package manager
 node_modules
+
+# Production bundle
 build
+
+# IDE
+.vscode
