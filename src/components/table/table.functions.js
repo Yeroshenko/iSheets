@@ -16,3 +16,31 @@ export const matrix = ($target, $current) => {
     return acc
   }, [])
 }
+
+export const nextSelector = (key, { row, col }, rowCount) => {
+  const MIN_VALUE = 0
+  const COL_COUNT = 25
+  const ROW_COUNT = rowCount - 1
+
+  switch (key) {
+    case 'Enter':
+    case 'ArrowDown':
+      row = row + 1 > ROW_COUNT ? ROW_COUNT : row + 1
+      break
+
+    case 'Tab':
+    case 'ArrowRight':
+      col = col + 1 > COL_COUNT ? COL_COUNT : col + 1
+      break
+
+    case 'ArrowLeft':
+      col = col - 1 < MIN_VALUE ? MIN_VALUE : col - 1
+      break
+
+    case 'ArrowUp':
+      row = row - 1 < MIN_VALUE ? MIN_VALUE : row - 1
+      break
+  }
+
+  return `[data-id='${row}:${col}']`
+}

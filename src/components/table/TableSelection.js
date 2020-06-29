@@ -9,7 +9,8 @@ export class TableSelection {
   //  $el instanceof DOM === true
   select($el) {
     this.clear()
-    $el.addClass(TableSelection.className)
+
+    $el.focus().cursorToEnd().addClass(TableSelection.className)
 
     this.group.push($el)
     this.current = $el

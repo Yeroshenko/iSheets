@@ -3,7 +3,7 @@ import { SpreadsheetComponent, $ } from '@core'
 import { TableSelection } from './TableSelection'
 import { createTable } from './table.template'
 import { resizeHandler } from './table.resize'
-import { shouldResize, isCell, matrix } from './table.functions'
+import { shouldResize, isCell, matrix, nextSelector } from './table.functions'
 
 export class Tabble extends SpreadsheetComponent {
   static className = 'spreadsheet__table'
@@ -11,12 +11,14 @@ export class Tabble extends SpreadsheetComponent {
   constructor($root) {
     super($root, {
       name: 'Table',
-      listeners: ['mousedown']
+      listeners: ['mousedown', 'keydown']
     })
   }
+  rowCount = 128
 
   toHTML() {
-    return createTable(64)
+    console.log(this)
+    return createTable(this.rowCount)
   }
 
   prepare() {
@@ -47,6 +49,26 @@ export class Tabble extends SpreadsheetComponent {
       } else {
         this.selection.select($target)
       }
+    }
+  }
+
+  onKeydown(event) {
+    const keys = [
+      'Enter',
+      'Tab',
+      'ArrowLeft',
+      'ArrowRight',
+      'ArrowDown',
+      'ArrowUp'
+    ]
+
+    const { key } = event
+
+    if (keys.includes(key) && !event.shiftKey) {
+      event.preventDefault()
+      const id = this.selection.current.id(true)
+      const $next = this.$root.find(nextSelector(key, id, this.rowCount))
+      this.selection.select($next)
     }
   }
 }

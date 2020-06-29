@@ -15,7 +15,6 @@ class Dom {
 
   clear() {
     this.html('')
-    return this
   }
   // addEventListener 2.0
   on(eventType, callback) {
@@ -85,6 +84,24 @@ class Dom {
 
   removeClass(className) {
     this.$el.classList.remove(className)
+  }
+
+  focus() {
+    this.$el.focus()
+    return this
+  }
+
+  cursorToEnd() {
+    const range = document.createRange()
+    const sel = window.getSelection()
+
+    range.selectNodeContents(this.$el)
+    range.collapse(false)
+
+    sel.removeAllRanges()
+    sel.addRange(range)
+
+    return this
   }
 }
 
