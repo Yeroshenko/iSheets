@@ -3,7 +3,7 @@ import { SpreadsheetComponent, $ } from '@core'
 import { TableSelection } from './TableSelection'
 import { createTable } from './table.template'
 import { resizeHandler } from './table.resize'
-import { shouldResize, isCell } from './table.functions'
+import { shouldResize, isCell, matrix } from './table.functions'
 
 export class Tabble extends SpreadsheetComponent {
   static className = 'spreadsheet__table'
@@ -36,10 +36,17 @@ export class Tabble extends SpreadsheetComponent {
     }
 
     if (isCell(event)) {
-      console.log(event.shiftKey)
+      const $target = $(event.target)
 
-      const $cell = $(event.target)
-      this.selection.select($cell)
+      if (event.shiftKey) {
+        const $cells = matrix($target, this.selection.current).map(id =>
+          this.$root.find(`[data-id='${id}']`)
+        )
+
+        this.selection.selectGroup($cells)
+      } else {
+        this.selection.select($target)
+      }
     }
   }
 }
