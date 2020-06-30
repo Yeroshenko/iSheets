@@ -3,6 +3,13 @@ import { SpreadsheetComponent } from '@core/SpreadsheetComponent'
 export class Header extends SpreadsheetComponent {
   static className = 'spreadsheet__header' // wrapp className
 
+  constructor($root, options) {
+    super($root, {
+      name: 'Header',
+      ...options
+    })
+  }
+
   toHTML() {
     return `
       <input class='spreadsheet__header-input' type='text' value='Новая таблица' />

@@ -8,16 +8,16 @@ import { shouldResize, isCell, matrix, nextSelector } from './table.functions'
 export class Tabble extends SpreadsheetComponent {
   static className = 'spreadsheet__table'
 
-  constructor($root) {
+  constructor($root, options) {
     super($root, {
       name: 'Table',
-      listeners: ['mousedown', 'keydown']
+      listeners: ['mousedown', 'keydown'],
+      ...options
     })
   }
   rowCount = 128
 
   toHTML() {
-    console.log(this)
     return createTable(this.rowCount)
   }
 
@@ -30,6 +30,8 @@ export class Tabble extends SpreadsheetComponent {
 
     const $cell = this.$root.find('[data-id="0:0"]')
     this.selection.select($cell)
+
+    this.emitter.subscribe('working', text => this.selection.current.text(text))
   }
 
   onMousedown(event) {

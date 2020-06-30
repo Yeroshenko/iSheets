@@ -1,9 +1,10 @@
-import { DomListener } from '@core/DomListener'
+import { DomListener } from '@core'
 
 export class SpreadsheetComponent extends DomListener {
   constructor($root, options = {}) {
     super($root, options.listeners)
     this.name = options.name || ''
+    this.emitter = options.emitter
 
     this.prepare()
   }
