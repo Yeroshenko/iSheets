@@ -1,4 +1,5 @@
-import { $, Emitter } from '@core'
+import { Emitter } from '@core/Emitter'
+import { $ } from '@core/Dom'
 
 export class Spreadsheet {
   constructor(selector, options) {

@@ -1,4 +1,4 @@
-import { $ } from '@core'
+import { $ } from '@core/Dom'
 
 export const resizeHandler = (event, $root) => {
   const $resizer = $(event.target)

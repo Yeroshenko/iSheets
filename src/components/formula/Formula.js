@@ -1,5 +1,5 @@
 import { SpreadsheetComponent } from '@core/SpreadsheetComponent'
-import { $ } from '@core'
+import { $ } from '@core/Dom'
 
 export class Formula extends SpreadsheetComponent {
   static className = 'spreadsheet__formula'

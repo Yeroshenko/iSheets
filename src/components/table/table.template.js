@@ -6,6 +6,7 @@ const createCell = row => {
       <div
         class='table__row-cell'
         contenteditable
+        spellcheck='false'
         data-type='cell'
         data-col='${col}'
         data-id='${row}:${col}'

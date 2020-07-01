@@ -1,4 +1,5 @@
-import { SpreadsheetComponent, $ } from '@core'
+import { SpreadsheetComponent } from '@core/SpreadsheetComponent'
+import { $ } from '@core/Dom'
 
 import { TableSelection } from './TableSelection'
 import { createTable } from './table.template'

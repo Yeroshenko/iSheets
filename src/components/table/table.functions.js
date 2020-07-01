@@ -1,4 +1,4 @@
-import { range } from '@core'
+import { range } from '@core/utils'
 
 export const shouldResize = event => event.target.dataset.resize
 

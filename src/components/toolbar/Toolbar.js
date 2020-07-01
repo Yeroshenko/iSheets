@@ -1,4 +1,4 @@
-import { SpreadsheetComponent } from '@core'
+import { SpreadsheetComponent } from '@core/SpreadsheetComponent'
 
 export class Toolbar extends SpreadsheetComponent {
   static className = 'spreadsheet__toolbar'

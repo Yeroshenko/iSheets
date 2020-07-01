@@ -1,4 +1,4 @@
-import { DomListener } from '@core'
+import { DomListener } from '@core/DomListener'
 
 export class SpreadsheetComponent extends DomListener {
   constructor($root, options = {}) {
