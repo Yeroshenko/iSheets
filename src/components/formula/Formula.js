@@ -1,4 +1,5 @@
 import { SpreadsheetComponent } from '@core/SpreadsheetComponent'
+import { $ } from '@core'
 
 export class Formula extends SpreadsheetComponent {
   static className = 'spreadsheet__formula'
@@ -6,7 +7,7 @@ export class Formula extends SpreadsheetComponent {
   constructor($root, options) {
     super($root, {
       name: 'Formula',
-      listeners: ['input'],
+      listeners: ['input', 'keydown'],
       ...options
     })
   }
@@ -18,8 +19,24 @@ export class Formula extends SpreadsheetComponent {
     `
   }
 
+  init() {
+    super.init()
+    this.$formula = this.$root.find('div[contenteditable]')
+
+    this.$on('table:select', $cell => this.$formula.text($cell.text()))
+    this.$on('table:input', $cell => this.$formula.text($cell.text()))
+  }
+
   onInput(e) {
-    const text = e.target.textContent.trim()
-    this.$emit('formula:input', text)
+    this.$emit('formula:input', $(e.target).text())
+  }
+
+  onKeydown(e) {
+    const keys = ['Enter', 'Tab']
+
+    if (keys.includes(e.key)) {
+      e.preventDefault()
+      this.$emit('formula:pressEnter')
+    }
   }
 }
