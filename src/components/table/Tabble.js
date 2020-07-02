@@ -41,9 +41,18 @@ export class Tabble extends SpreadsheetComponent {
     this.$emit('table:select', $cell)
   }
 
+  async resizeTable(event) {
+    try {
+      const data = await resizeHandler(event, this.$root)
+      this.$dispatch({ type: 'TABLE:RESIZE', data })
+    } catch (e) {
+      console.warn('Resize error', e.message)
+    }
+  }
+
   onMousedown(event) {
     if (shouldResize(event)) {
-      resizeHandler(event, this.$root)
+      this.resizeTable(event)
     }
 
     if (isCell(event)) {
