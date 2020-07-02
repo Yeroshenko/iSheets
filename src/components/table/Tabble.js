@@ -1,5 +1,6 @@
 import { SpreadsheetComponent } from '@core/SpreadsheetComponent'
 import { $ } from '@core/Dom'
+import * as actions from '@store/actions'
 
 import { TableSelection } from './TableSelection'
 import { createTable } from './table.template'
@@ -44,7 +45,7 @@ export class Tabble extends SpreadsheetComponent {
   async resizeTable(event) {
     try {
       const data = await resizeHandler(event, this.$root)
-      this.$dispatch({ type: 'TABLE:RESIZE', data })
+      this.$dispatch(actions.tableResize(data))
     } catch (e) {
       console.warn('Resize error', e.message)
     }
