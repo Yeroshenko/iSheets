@@ -1,7 +1,13 @@
 const CODES = { A: 65, Z: 90 }
+const DEFAULT_WIDTH = 120
+const DEFAULT_HEIGHT = 24
 
-const createCell = row => {
+const getWidth = (state, index) => (state[index] || DEFAULT_WIDTH) + 'px'
+const getHeight = (state, index) => (state[index] || DEFAULT_HEIGHT) + 'px'
+
+const createCell = (row, state) => {
   return (_, col) => {
+    const width = getWidth(state, col)
     return `
       <div
         class='table__row-cell'
@@ -10,27 +16,40 @@ const createCell = row => {
         data-type='cell'
         data-col='${col}'
         data-id='${row}:${col}'
+        style='width: ${width}'
       ></div>
     `
   }
 }
 
-const createCol = (col, index) => {
+const createCol = ({ col, index, width }) => {
   return `
-    <div class='table__row-column column' data-type='resizable' data-col='${index}'>
+    <div
+      class='table__row-column column'
+      data-type='resizable'
+      data-col='${index}'
+      style='width: ${width}'
+    >
       ${col}
       <div class='column__resize' data-resize='col'></div>
     </div>
   `
 }
 
-const createRow = (index, content) => {
+const createRow = (index, content, state) => {
   const resize = index
     ? `<div class='row__resize' data-resize='row'></div>`
     : ''
 
+  const height = getHeight(state, index)
+
   return `
-    <div class='table__row row' data-type='resizable'>
+    <div
+      class='table__row row'
+      data-type='resizable'
+      data-row='${index}'
+      style='height: ${height}'
+    >
       <div class='table__row-info'>
         ${index ? index : ''}
         ${resize}
@@ -45,19 +64,33 @@ const tableWrap = (content, className) =>
 
 const toChar = (_, index) => String.fromCharCode(CODES.A + index)
 
-export const createTable = (rowsCount = 20) => {
+const withWidthFrom = state => {
+  return (col, index) => {
+    return { col, index, width: getWidth(state.colState, index) }
+  }
+}
+
+export const createTable = (rowsCount = 20, state = {}) => {
   const colsCount = CODES.Z - CODES.A + 1
   const rows = []
 
   // create empty array -> put a letter in an array cell -> letter to column -> array to string
-  const cols = new Array(colsCount).fill('').map(toChar).map(createCol).join('')
+  const cols = new Array(colsCount)
+    .fill('')
+    .map(toChar)
+    .map(withWidthFrom(state))
+    .map(createCol)
+    .join('')
 
-  rows.push(createRow(null, cols))
+  rows.push(createRow(null, cols, {}))
 
   for (let row = 0; row < rowsCount; row++) {
-    const cells = new Array(colsCount).fill('').map(createCell(row)).join('')
+    const cells = new Array(colsCount)
+      .fill('')
+      .map(createCell(row, state.colState))
+      .join('')
 
-    rows.push(createRow(row + 1, cells))
+    rows.push(createRow(row + 1, cells, state.rowState))
   }
 
   return tableWrap(rows.join(''), 'table')

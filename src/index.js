@@ -1,11 +1,12 @@
 import { storage } from '@core/utils'
 import { createStore } from '@core/createStore'
 import { rootReducer } from '@store/rootReducer'
+import { initailState } from '@store/initialState'
 import { Spreadsheet, Header, Toolbar, Formula, Tabble } from '@components'
 
 import './styles/index.sass'
 
-const store = createStore(rootReducer, storage('spreadsheet-state'))
+const store = createStore(rootReducer, initailState)
 
 store.subscribe(state => {
   console.log('App state-->', state)

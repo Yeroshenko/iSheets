@@ -20,7 +20,7 @@ export class Tabble extends SpreadsheetComponent {
   rowCount = 128
 
   toHTML() {
-    return createTable(this.rowCount)
+    return createTable(this.rowCount, this.store.getState())
   }
 
   prepare() {
