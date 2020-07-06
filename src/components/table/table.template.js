@@ -7,7 +7,10 @@ const getHeight = (state, index) => (state[index] || DEFAULT_HEIGHT) + 'px'
 
 const createCell = (row, state) => {
   return (_, col) => {
-    const width = getWidth(state, col)
+    const id = `${row}:${col}`
+    const text = state.dataState[id]
+    const width = getWidth(state.colState, col)
+
     return `
       <div
         class='table__row-cell'
@@ -15,9 +18,9 @@ const createCell = (row, state) => {
         spellcheck='false'
         data-type='cell'
         data-col='${col}'
-        data-id='${row}:${col}'
+        data-id='${id}'
         style='width: ${width}'
-      ></div>
+      >${text || ''}</div>
     `
   }
 }
@@ -87,7 +90,7 @@ export const createTable = (rowsCount = 20, state = {}) => {
   for (let row = 0; row < rowsCount; row++) {
     const cells = new Array(colsCount)
       .fill('')
-      .map(createCell(row, state.colState))
+      .map(createCell(row, state))
       .join('')
 
     rows.push(createRow(row + 1, cells, state.rowState))

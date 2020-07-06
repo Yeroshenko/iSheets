@@ -33,7 +33,11 @@ export class Tabble extends SpreadsheetComponent {
     const $cell = this.$root.find('[data-id="0:0"]')
     this.selectCell($cell)
 
-    this.$on('formula:input', text => this.selection.current.text(text))
+    this.$on('formula:input', text => {
+      this.selection.current.text(text)
+      this.updateTextInState(text)
+    })
+
     this.$on('formula:pressEnter', () => this.selection.current.focus())
   }
 
@@ -93,7 +97,13 @@ export class Tabble extends SpreadsheetComponent {
     }
   }
 
+  updateTextInState(text) {
+    const id = this.selection.current.id()
+
+    this.$dispatch(actions.changeText({ id, text }))
+  }
+
   onInput(event) {
-    this.$emit('table:input', $(event.target))
+    this.updateTextInState($(event.target).text())
   }
 }
