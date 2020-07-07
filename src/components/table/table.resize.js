@@ -52,7 +52,7 @@ export const resizeHandler = (event, $root) => {
           .findAll(`[data-col='${$parent.data.col}']`)
           .forEach(el => (el.style.width = value + 'px'))
       }
-      console.log('$parent -->', $parent.data)
+
       resolve({
         value,
         type: resizeType,
