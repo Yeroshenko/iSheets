@@ -1,4 +1,6 @@
 import { SpreadsheetComponent } from '@core/SpreadsheetComponent'
+import { createToolbar } from './toolbar.template'
+import { $ } from '@core/Dom'
 
 export class Toolbar extends SpreadsheetComponent {
   static className = 'spreadsheet__toolbar'
@@ -12,29 +14,13 @@ export class Toolbar extends SpreadsheetComponent {
   }
 
   toHTML() {
-    return `
-      <button class='spreadsheet__toolbar-button'>
-        <i class='material-icons'>format_align_left</i>
-      </button>
-      <button class='spreadsheet__toolbar-button'>
-        <i class='material-icons'>format_align_center</i>
-      </button>
-      <button class='spreadsheet__toolbar-button'>
-        <i class='material-icons'>format_align_right</i>
-      </button>
-      <button class='spreadsheet__toolbar-button'>
-        <i class='material-icons'>format_bold</i>
-      </button>
-      <button class='spreadsheet__toolbar-button'>
-        <i class='material-icons'>format_italic</i>
-      </button>
-      <button class='spreadsheet__toolbar-button'>
-        <i class='material-icons'>format_underline</i>
-      </button>
-    `
+    return createToolbar()
   }
 
   onClick(e) {
-    console.log(e.target)
+    const $target = $(e.target)
+    if ($target.data.type === 'button') {
+      console.log($target.data.value)
+    }
   }
 }
