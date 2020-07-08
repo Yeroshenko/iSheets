@@ -1,4 +1,5 @@
 import { SpreadsheetComponent } from '@core/SpreadsheetComponent'
+import { defaultCellStyles, tableRowCount } from '@/constants'
 import { $ } from '@core/Dom'
 import * as actions from '@store/actions'
 
@@ -17,10 +18,9 @@ export class Tabble extends SpreadsheetComponent {
       ...options
     })
   }
-  rowCount = 128
 
   toHTML() {
-    return createTable(this.rowCount, this.store.getState())
+    return createTable(tableRowCount, this.store.getState())
   }
 
   prepare() {
@@ -39,11 +39,14 @@ export class Tabble extends SpreadsheetComponent {
     })
 
     this.$on('formula:pressEnter', () => this.selection.current.focus())
+    this.$on('toolbar:applyStyle', style => this.selection.applyStyle(style))
   }
 
   selectCell($cell) {
     this.selection.select($cell)
     this.$emit('table:select', $cell)
+
+    console.log($cell.getStyles(Object.keys(defaultCellStyles)))
   }
 
   async resizeTable(event) {

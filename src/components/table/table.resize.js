@@ -11,10 +11,10 @@ export const resizeHandler = (event, $root) => {
     const sizeProp = resizeType === 'col' ? 'width' : 'height'
 
     // default resizer styles
-    const { right, bottom, opacity } = $resizer.getStyle()
+    const { right, bottom, opacity } = $resizer.getStyleValue()
 
-    const minCellWidth = parseInt($parent.getStyle().minWidth)
-    const minCellHeight = parseInt($parent.getStyle().minHeight)
+    const minCellWidth = parseInt($parent.getStyleValue().minWidth)
+    const minCellHeight = parseInt($parent.getStyleValue().minHeight)
 
     let delta
     let value
