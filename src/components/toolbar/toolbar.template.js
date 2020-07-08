@@ -14,37 +14,42 @@ const toButton = button => {
   `
 }
 
-export const createToolbar = () => {
+// { textDecoration: state['textDecoration'] === 'underline' ? 'none' : 'underline' }
+const createButtonValue = (state, value, active, notActive) => ({
+  [value]: state[value] === active ? notActive : active
+})
+
+export const createToolbar = state => {
   const buttons = [
     {
       icon: 'format_align_left',
-      active: false,
+      active: state['textAlign'] === 'left',
       value: { textAlign: 'left' }
     },
     {
       icon: 'format_align_center',
-      active: false,
+      active: state['textAlign'] === 'center',
       value: { textAlign: 'center' }
     },
     {
       icon: 'format_align_right',
-      active: false,
+      active: state['textAlign'] === 'right',
       value: { textAlign: 'right' }
     },
     {
       icon: 'format_bold',
-      active: false,
-      value: { fontWeight: 'bold' }
+      active: state['fontWeight'] === 'bold',
+      value: createButtonValue(state, 'fontWeight', 'bold', 'normal')
     },
     {
       icon: 'format_italic',
-      active: false,
-      value: { fontStyle: 'italic' }
+      active: state['fontStyle'] === 'italic',
+      value: createButtonValue(state, 'fontStyle', 'italic', 'normal')
     },
     {
       icon: 'format_underline',
-      active: false,
-      value: { textDecoration: 'underline' }
+      active: state['textDecoration'] === 'underline',
+      value: createButtonValue(state, 'textDecoration', 'underline', 'none')
     }
   ]
 
