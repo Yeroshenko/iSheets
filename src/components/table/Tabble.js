@@ -39,14 +39,23 @@ export class Tabble extends SpreadsheetComponent {
     })
 
     this.$on('formula:pressEnter', () => this.selection.current.focus())
-    this.$on('toolbar:applyStyle', style => this.selection.applyStyle(style))
+    this.$on('toolbar:applyStyle', value => {
+      this.selection.applyStyle(value)
+      this.$dispatch(
+        actions.applyStyle({
+          value,
+          ids: this.selection.selectedIds
+        })
+      )
+    })
   }
 
   selectCell($cell) {
+    const styles = $cell.getStyles(Object.keys(defaultCellStyles))
+
     this.selection.select($cell)
     this.$emit('table:select', $cell)
-
-    console.log($cell.getStyles(Object.keys(defaultCellStyles)))
+    this.$dispatch(actions.changeStyles(styles))
   }
 
   async resizeTable(event) {
@@ -100,10 +109,10 @@ export class Tabble extends SpreadsheetComponent {
     }
   }
 
-  updateTextInState(text) {
+  updateTextInState(value) {
     const id = this.selection.current.id()
 
-    this.$dispatch(actions.changeText({ id, text }))
+    this.$dispatch(actions.changeText({ id, value }))
   }
 
   onInput(event) {

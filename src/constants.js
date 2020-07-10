@@ -6,3 +6,6 @@ export const defaultCellStyles = {
   fontStyle: 'normal',
   textDecoration: 'none'
 }
+
+export const defaultCellWidth = 120
+export const defaultCellHeight = 24

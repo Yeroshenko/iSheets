@@ -11,6 +11,7 @@ export class Toolbar extends SpreadsheetState {
     super($root, {
       name: 'Toolbar',
       listeners: ['click'],
+      subscribe: ['currentStyles'],
       ...options
     })
   }
@@ -27,14 +28,18 @@ export class Toolbar extends SpreadsheetState {
     return this.template
   }
 
+  storeChanged({ currentStyles }) {
+    this.setState(currentStyles)
+  }
+
   onClick(e) {
     const $target = $(e.target)
     if ($target.data.type === 'button') {
       const value = JSON.parse($target.data.value)
       this.$emit('toolbar:applyStyle', value)
 
-      const key = Object.keys(value)[0]
-      this.setState({ [key]: value[key] })
+      // const key = Object.keys(value)[0]
+      // this.setState({ [key]: value[key] })
     }
   }
 }

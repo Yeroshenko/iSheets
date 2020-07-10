@@ -22,6 +22,10 @@ export class TableSelection {
     this.group.map($el => $el.addClass(TableSelection.className))
   }
 
+  get selectedIds() {
+    return this.group.map($cell => $cell.id())
+  }
+
   clear() {
     this.group.map($el => $el.removeClass(TableSelection.className))
     this.group = []

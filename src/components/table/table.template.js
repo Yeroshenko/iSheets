@@ -1,15 +1,17 @@
-const CODES = { A: 65, Z: 90 }
-const DEFAULT_WIDTH = 120
-const DEFAULT_HEIGHT = 24
+import { defaultCellHeight, defaultCellWidth } from '@/constants'
+import { toInlineStyles } from '@core/utils'
 
-const getWidth = (state, index) => (state[index] || DEFAULT_WIDTH) + 'px'
-const getHeight = (state, index) => (state[index] || DEFAULT_HEIGHT) + 'px'
+const CODES = { A: 65, Z: 90 }
+
+const getWidth = (state, index) => (state[index] || defaultCellWidth) + 'px'
+const getHeight = (state, index) => (state[index] || defaultCellHeight) + 'px'
 
 const createCell = (row, state) => {
   return (_, col) => {
     const id = `${row}:${col}`
     const text = state.dataState[id]
     const width = getWidth(state.colState, col)
+    const styles = toInlineStyles(state.stylesState[id])
 
     return `
       <div
@@ -19,7 +21,7 @@ const createCell = (row, state) => {
         data-type='cell'
         data-col='${col}'
         data-id='${id}'
-        style='width: ${width}'
+        style='${styles}; width: ${width}'
       >${text || ''}</div>
     `
   }
