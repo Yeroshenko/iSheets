@@ -1,4 +1,4 @@
-import { storage } from '@core/utils'
+import { storage, debounce } from '@core/utils'
 import { createStore } from '@core/createStore'
 import { rootReducer } from '@store/rootReducer'
 import { initailState } from '@store/initialState'
@@ -8,10 +8,12 @@ import './styles/index.sass'
 
 const store = createStore(rootReducer, initailState)
 
-store.subscribe(state => {
+const stateListener = debounce(state => {
   console.log('App state-->', state)
   storage('spreadsheet-state', state)
-})
+}, 300)
+
+store.subscribe(stateListener)
 
 const spreadsheet = new Spreadsheet('#app', {
   components: [Header, Toolbar, Formula, Tabble],
