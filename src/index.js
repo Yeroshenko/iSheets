@@ -9,7 +9,6 @@ import './styles/index.sass'
 const store = createStore(rootReducer, initailState)
 
 const stateListener = debounce(state => {
-  console.log('App state-->', state)
   storage('spreadsheet-state', state)
 }, 300)
 

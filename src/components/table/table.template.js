@@ -4,6 +4,7 @@ import {
   defaultCellStyles
 } from '@/constants'
 import { toInlineStyles } from '@core/utils'
+import { parse } from '@core/parse'
 
 const CODES = { A: 65, Z: 90 }
 
@@ -13,7 +14,7 @@ const getHeight = (state, index) => (state[index] || defaultCellHeight) + 'px'
 const createCell = (row, state) => {
   return (_, col) => {
     const id = `${row}:${col}`
-    const text = state.dataState[id]
+    const data = state.dataState[id]
     const width = getWidth(state.colState, col)
     const styles = toInlineStyles({
       ...defaultCellStyles,
@@ -28,8 +29,9 @@ const createCell = (row, state) => {
         data-type='cell'
         data-col='${col}'
         data-id='${id}'
+        data-value='${data || ''}'
         style='${styles}; width: ${width}'
-      >${text || ''}</div>
+      >${parse(data) || ''}</div>
     `
   }
 }

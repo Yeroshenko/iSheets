@@ -1,6 +1,7 @@
 import { SpreadsheetComponent } from '@core/SpreadsheetComponent'
 import { defaultCellStyles, tableRowCount } from '@/constants'
 import { $ } from '@core/Dom'
+import { parse } from '@core/parse'
 import * as actions from '@store/actions'
 
 import { TableSelection } from './TableSelection'
@@ -33,9 +34,9 @@ export class Tabble extends SpreadsheetComponent {
     const $cell = this.$root.find('[data-id="0:0"]')
     this.selectCell($cell)
 
-    this.$on('formula:input', text => {
-      this.selection.current.text(text)
-      this.updateTextInState(text)
+    this.$on('formula:input', value => {
+      this.selection.current.attr('data-value', value).text(parse(value))
+      this.updateTextInState(value)
     })
 
     this.$on('formula:pressEnter', () => this.selection.current.focus())
@@ -115,7 +116,14 @@ export class Tabble extends SpreadsheetComponent {
     this.$dispatch(actions.changeText({ id, value }))
   }
 
+  updateDataValue($target) {
+    $target.attr('data-value', $target.text())
+  }
+
   onInput(event) {
-    this.updateTextInState($(event.target).text())
+    const $target = $(event.target)
+
+    this.updateTextInState($target.text())
+    this.updateDataValue($target)
   }
 }

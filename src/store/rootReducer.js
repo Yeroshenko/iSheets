@@ -10,7 +10,6 @@ export const rootReducer = (state, action) => {
   let field
   let val
 
-  console.log('ACTION:', action)
   switch (action.type) {
     case TABLE_RESIZE:
       field = action.data.type === 'col' ? 'colState' : 'rowState'

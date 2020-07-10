@@ -14,7 +14,7 @@ class Dom {
   }
 
   text(text) {
-    if (typeof text === 'string') {
+    if (typeof text !== 'undefined') {
       this.$el.textContent = text
       return this
     }
@@ -112,6 +112,15 @@ class Dom {
     this.$el.focus()
     this.cursorToEnd()
     return this
+  }
+
+  attr(name, value) {
+    if (value !== undefined) {
+      this.$el.setAttribute(name, value)
+      return this
+    }
+
+    this.$el.getAttribute(name)
   }
 
   cursorToEnd() {

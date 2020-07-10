@@ -23,7 +23,7 @@ export class Formula extends SpreadsheetComponent {
   init() {
     super.init()
     this.$formula = this.$root.find('div[contenteditable]')
-    this.$on('table:select', $cell => this.$formula.text($cell.text()))
+    this.$on('table:select', $cell => this.$formula.text($cell.data.value))
   }
 
   storeChanged({ currentText }) {
