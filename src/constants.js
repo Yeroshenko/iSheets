@@ -1,3 +1,4 @@
+export const defaultTitle = 'Новая таблица'
 export const tableRowCount = 128
 
 export const defaultCellStyles = {
