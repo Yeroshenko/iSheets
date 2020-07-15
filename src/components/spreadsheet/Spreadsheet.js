@@ -3,8 +3,7 @@ import { Emitter } from '@core/Emitter'
 import { $ } from '@core/Dom'
 
 export class Spreadsheet {
-  constructor(selector, options) {
-    this.$el = $(selector)
+  constructor(options) {
     this.components = options.components || []
     this.store = options.store
     this.emitter = new Emitter()
@@ -32,9 +31,7 @@ export class Spreadsheet {
     return $root
   }
 
-  render() {
-    this.$el.append(this.getRoot())
-
+  init() {
     this.subscriber.subscribeComponents(this.components)
     this.components.forEach(component => component.init())
   }
