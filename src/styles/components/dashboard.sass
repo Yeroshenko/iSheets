@@ -1,0 +1,59 @@
+@import '../variables'
+@import '../mixins'
+@import '../ui'
+
+.dashboard
+  background: #F1F3F4
+  min-height: 100vh
+
+.dashboard__header
+  padding: 12px 0
+  display: flex
+  align-items: center
+  justify-content: center
+  background-color: #FFF
+
+.dashboard__header h1
+  margin: 0
+
+.dashboard__tables
+  @extend %container
+  padding: 24px 0
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr
+  align-items: center
+  justify-items: center
+
+
+.dashboard__table
+  width: 240px
+  height: 160px
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  margin-bottom: 32px
+
+  text-align: center
+
+  background-color: #fff
+  border-radius: 12px
+  box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.04)
+  transition: .2s all ease-in-out
+
+  &:hover
+    transform: translateY(-8px)
+    cursor: pointer
+
+.dashboard__table-name
+  font-size: 20px
+  margin-bottom: 16px
+
+.dashboard__table-date
+  font-size: 14px
+
+.dashboard__table-creator
+  @extend .dashboard__table
+
+  img
+    width: 80px

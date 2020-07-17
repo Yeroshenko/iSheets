@@ -88,6 +88,10 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: jsLoaders()
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)$/,
+        use: ['file-loader']
       }
     ]
   }

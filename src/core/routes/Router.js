@@ -19,7 +19,7 @@ export class Router {
   }
 
   changePageHandler() {
-    const Page = this.routes.spreadsheet
+    const Page = this.routes.dashboard
     const page = new Page()
 
     this.$placeholder.append(page.getRoot())
