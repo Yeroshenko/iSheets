@@ -5,20 +5,18 @@ export const createStore = (rootReducer, initialState = {}) => {
   return {
     subscribe(fn) {
       listeners.push(fn)
-
-      return () => {
-        listeners = listeners.filter(listener => listener !== fn)
+      return {
+        unsubscribe() {
+          listeners = listeners.filter(l => l !== fn)
+        }
       }
     },
-
     dispatch(action) {
       state = rootReducer(state, action)
-      listeners.map(listener => listener(state))
+      listeners.forEach(listener => listener(state))
     },
-
     getState() {
       return JSON.parse(JSON.stringify(state))
     }
   }
 }
-// переписать на класс

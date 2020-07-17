@@ -22,14 +22,13 @@ export class SpreadsheetComponent extends DomListener {
 
   // notify listeners about the event
   $emit(event, ...args) {
-    const unsub = this.emitter.emit(event, ...args)
-
-    this.unsubscribers.push(unsub)
+    this.emitter.emit(event, ...args)
   }
 
   // subscribe to events
   $on(event, fn) {
-    this.emitter.subscribe(event, fn)
+    const unsub = this.emitter.subscribe(event, fn)
+    this.unsubscribers.push(unsub)
   }
 
   $dispatch(action) {

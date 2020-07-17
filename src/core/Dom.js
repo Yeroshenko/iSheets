@@ -28,6 +28,7 @@ class Dom {
 
   clear() {
     this.html('')
+    return this
   }
   // addEventListener 2.0
   on(eventType, callback) {
