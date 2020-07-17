@@ -18,21 +18,30 @@
 
 .dashboard__tables
   @extend %container
-  padding: 24px 0
-  display: grid;
+  padding: 24px 16px
+  display: grid
   grid-template-columns: 1fr 1fr 1fr 1fr
   align-items: center
   justify-items: center
+  grid-gap: 32px
 
+  @media screen and ( max-width: 1024px )
+    grid-template-columns: 1fr 1fr 1fr
+
+  @media screen and ( max-width: 768px )
+    grid-template-columns: 1fr 1fr
+
+  @media screen and ( max-width: 500px )
+    grid-template-columns: 1fr
+    grid-gap: 16px
 
 .dashboard__table
-  width: 240px
+  width: 100%
   height: 160px
   display: flex
   flex-direction: column
   align-items: center
   justify-content: center
-  margin-bottom: 32px
 
   text-align: center
 

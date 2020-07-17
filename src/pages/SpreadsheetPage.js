@@ -7,6 +7,8 @@ import { Spreadsheet, Header, Toolbar, Formula, Tabble } from '@components'
 
 export class SpreadsheetPage extends Page {
   getRoot() {
+    console.log(this.params)
+
     const store = createStore(rootReducer, initailState)
 
     const stateListener = debounce(state => {
