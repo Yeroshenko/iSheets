@@ -1,13 +1,16 @@
-export const toHTML = () => {
+import { storage } from '@core/utils'
+
+export const toHTML = key => {
+  const model = storage(key)
+  const id = key.split(':')[1]
+
   return `
-    <div class='dashboard__table'>
-      <div class='dashboard__table-name'>
-        Новая таблица
-      </div>
+    <a href='#spreadsheet/${id}' class='dashboard__table'>
+      <div class='dashboard__table-name'>${model.title}</div>
       <div class='dashboard__table-date'>
         Дата открытия: <span>17.07.2020</span>
       </div>
-    </div>
+    </a>
   `
 }
 
@@ -17,7 +20,7 @@ const getAllKeys = () => {
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i)
 
-    if (key.includes('spreadsheet')) {
+    if (!key.includes('spreadsheet')) {
       continue
     }
 
@@ -28,9 +31,5 @@ const getAllKeys = () => {
 }
 
 export const getAllRecords = () => {
-  const keys = getAllKeys()
-
-  console.log(keys)
-
-  return keys.map(toHTML).join('')
+  return getAllKeys().map(toHTML).join('')
 }

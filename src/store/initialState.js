@@ -1,5 +1,5 @@
-import { storage } from '@core/utils'
 import { defaultCellStyles, defaultTitle } from '@/constants'
+import { clone } from '@core/utils'
 
 const defaultState = {
   title: defaultTitle,
@@ -17,6 +17,6 @@ const normalize = state => ({
   currentText: ''
 })
 
-export const initailState = storage('spreadsheet-state')
-  ? normalize(storage('spreadsheet-state'))
-  : defaultState
+export const normalizeInitialState = state => {
+  return state ? normalize(state) : clone(defaultState)
+}

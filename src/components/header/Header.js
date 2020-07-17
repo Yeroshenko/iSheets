@@ -5,6 +5,7 @@ import { $ } from '@core/Dom'
 import { changeTitle } from '@store/actions'
 import { defaultTitle } from '@/constants'
 import { debounce } from '@core/utils'
+import { ActiveRoute } from '@core/routes'
 
 export class Header extends SpreadsheetComponent {
   static className = 'spreadsheet__header' // wrapp className
@@ -12,7 +13,7 @@ export class Header extends SpreadsheetComponent {
   constructor($root, options) {
     super($root, {
       name: 'Header',
-      listeners: ['input'],
+      listeners: ['input', 'click'],
       ...options
     })
   }
@@ -32,8 +33,18 @@ export class Header extends SpreadsheetComponent {
         placeholder='${defaultTitle}'
       />
       <div class='spreadsheet__header-buttons'>
-        <button class='spreadsheet__header-button'>Удалить</button>
-        <button class='spreadsheet__header-button'>Выйти</button>
+        <button
+          class='spreadsheet__header-button'
+          data-btn='remove'
+        >
+          Удалить
+        </button>
+        <button
+          class='spreadsheet__header-button'
+          data-btn='exit'
+        >
+          Выйти
+        </button>
       </div>
     `
   }
@@ -49,5 +60,22 @@ export class Header extends SpreadsheetComponent {
     const $target = $(e.target)
 
     this.$dispatch(changeTitle($target.text()))
+  }
+
+  onClick(e) {
+    const $target = $(e.target)
+
+    if ($target.data.btn === 'remove') {
+      const decision = confirm('Реально хотите удалить?')
+
+      if (decision) {
+        localStorage.removeItem('spreadsheet:' + ActiveRoute.param)
+        ActiveRoute.navigate('/')
+      }
+    }
+
+    if ($target.data.btn === 'exit') {
+      ActiveRoute.navigate('/')
+    }
   }
 }
