@@ -1,6 +1,7 @@
 import { $ } from '@core/Dom'
 import { Emitter } from '@core/Emitter'
 import { StoreSubscriber } from '@core/StoreSubscriber'
+import { preventDefault } from '@core/utils'
 import { updateLastOpened } from '@store/actions'
 
 export class Spreadsheet {
@@ -33,6 +34,9 @@ export class Spreadsheet {
   }
 
   init() {
+    if (process.env.NODE_ENV === 'production') {
+      document.addEventListener('contextmenu', preventDefault)
+    }
     this.store.dispatch(updateLastOpened())
     this.subscriber.subscribeComponents(this.components)
     this.components.forEach(component => component.init())
@@ -41,5 +45,6 @@ export class Spreadsheet {
   destroy() {
     this.subscriber.unsubscribeFromStore()
     this.components.forEach(component => component.destroy())
+    document.removeEventListener('contextmenu', preventDefault)
   }
 }
