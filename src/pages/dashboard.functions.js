@@ -8,7 +8,9 @@ export const toHTML = key => {
     <a href='#spreadsheet/${id}' class='dashboard__table'>
       <div class='dashboard__table-name'>${model.title}</div>
       <div class='dashboard__table-date'>
-        Дата открытия: <span>17.07.2020</span>
+        Дата открытия: <span>
+          ${new Date(model.lastOpened).toLocaleDateString()}
+        </span>
       </div>
     </a>
   `

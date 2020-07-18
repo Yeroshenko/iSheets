@@ -9,7 +9,7 @@ export class DashboardPage extends Page {
 
     return $.create('div', 'dashboard').html(`
       <div class='dashboard__header'>
-        <h1>iSheets</h1>
+        <h1>Панель управления</h1>
       </div>
       <div class='dashboard__wrapper'>
         <div class='dashboard__tables'>

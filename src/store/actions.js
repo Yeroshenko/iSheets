@@ -3,7 +3,8 @@ import {
   CHANGE_TEXT,
   APPLY_STYLE,
   CHANGE_STYLES,
-  CHANGE_TITILE
+  CHANGE_TITILE,
+  UPDATE_LAST_OPENED
 } from './types'
 
 // action creators
@@ -12,3 +13,4 @@ export const changeText = data => ({ type: CHANGE_TEXT, data })
 export const applyStyle = data => ({ type: APPLY_STYLE, data })
 export const changeStyles = data => ({ type: CHANGE_STYLES, data })
 export const changeTitle = data => ({ type: CHANGE_TITILE, data })
+export const updateLastOpened = () => ({ type: UPDATE_LAST_OPENED })

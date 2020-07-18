@@ -1,6 +1,7 @@
-import { StoreSubscriber } from '@core/StoreSubscriber'
-import { Emitter } from '@core/Emitter'
 import { $ } from '@core/Dom'
+import { Emitter } from '@core/Emitter'
+import { StoreSubscriber } from '@core/StoreSubscriber'
+import { updateLastOpened } from '@store/actions'
 
 export class Spreadsheet {
   constructor(options) {
@@ -32,6 +33,7 @@ export class Spreadsheet {
   }
 
   init() {
+    this.store.dispatch(updateLastOpened())
     this.subscriber.subscribeComponents(this.components)
     this.components.forEach(component => component.init())
   }
