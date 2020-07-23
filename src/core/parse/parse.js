@@ -5,8 +5,7 @@ export const parse = (value = '') => {
     }
 
     try {
-      const res = eval(value.slice(1))
-      return res
+      return eval(value.slice(1))
     } catch (e) {
       console.warn('Parse error', e.message)
     }
