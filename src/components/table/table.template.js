@@ -4,7 +4,7 @@ import {
   defaultCellStyles
 } from '@/constants'
 import { toInlineStyles } from '@core/utils'
-import { parse } from '@core/parse'
+import { parse } from '@core/parse/parse'
 
 const CODES = { A: 65, Z: 90 }
 

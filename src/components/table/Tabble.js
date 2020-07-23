@@ -1,7 +1,7 @@
 import { SpreadsheetComponent } from '@core/SpreadsheetComponent'
 import { defaultCellStyles, tableRowCount } from '@/constants'
 import { $ } from '@core/Dom'
-import { parse } from '@core/parse'
+import { parse } from '@core/parse/parse'
 import * as actions from '@store/actions'
 
 import { TableSelection } from './TableSelection'

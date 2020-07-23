@@ -1,6 +1,6 @@
 import { $ } from '@core/Dom'
 import { Emitter } from '@core/Emitter'
-import { StoreSubscriber } from '@core/StoreSubscriber'
+import { StoreSubscriber } from '@core/store/StoreSubscriber'
 import { preventDefault } from '@core/utils'
 import { updateLastOpened } from '@store/actions'
 
