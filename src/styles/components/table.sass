@@ -16,9 +16,10 @@
   display: flex
   height: $row-height
   min-height: $row-height
-  // &:first-child
-  //   position: sticky
-  //   top: 0
+  &:first-child
+    position: sticky
+    top: 0
+    z-index: 3
 
 .table__row-info
   position: relative
@@ -31,6 +32,10 @@
   border: 1px solid $grey-100
   border-top: none
   user-select: none
+
+  position: sticky
+  left: 0
+  z-index: 4
 
 .table__row-data
   display: flex
