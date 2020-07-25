@@ -1,0 +1,51 @@
+@import '../_variables'
+@import '../_ui'
+
+@import '~@sweetalert2/theme-material-ui/material-ui.scss'
+
+
+.swal2-popup
+  &.confirm__popup
+    padding: 32px
+    border-radius: 12px
+
+.swal2-actions
+  &.confirm__buttons
+    display: flex
+    flex-direction: column
+    align-items: center
+    flex-direction: row
+
+.swal2-styled
+  &.confirm-btn
+    flex: 1
+    margin: 0
+    border-radius: 8px
+    transition: .2s all ease
+    border: 1px solid transparent
+
+    &:focus
+      box-shadow: none
+
+  &.confirm-btn__confirm
+    margin-right: 6px
+    background-color: $blue
+    color: $white
+    border-color: $blue
+
+    &:hover
+      background-color: lighten($blue, 10%)
+      border-color: lighten($blue, 10%)
+
+  &.confirm-btn__cancel
+    margin-left: 6px
+    background-color: transparent
+    color: rgba($black, .65)
+    border-color: $grey-300
+
+    &:hover,
+      // fix default style
+      background-image: none !important
+
+      color: $blue
+      border-color: $blue

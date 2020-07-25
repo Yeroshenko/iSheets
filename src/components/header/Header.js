@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2/src/sweetalert2.js'
 import autosizeInput from 'autosize-input'
 
 import { SpreadsheetComponent } from '@core/SpreadsheetComponent'
@@ -66,12 +67,27 @@ export class Header extends SpreadsheetComponent {
     const $target = $(e.target)
 
     if ($target.data.btn === 'remove') {
-      const decision = confirm('Реально хотите удалить?')
+      Swal.fire({
+        title: 'Вы уверены?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Да, удалить!',
+        cancelButtonText: 'Отменить',
 
-      if (decision) {
-        localStorage.removeItem('spreadsheet:' + ActiveRoute.param)
-        ActiveRoute.navigate('/')
-      }
+        customClass: {
+          popup: 'confirm__popup',
+
+          actions: 'confirm__buttons',
+
+          confirmButton: 'confirm-btn confirm-btn__confirm',
+          cancelButton: 'confirm-btn confirm-btn__cancel'
+        }
+      }).then(result => {
+        if (result.value) {
+          localStorage.removeItem('spreadsheet:' + ActiveRoute.param)
+          ActiveRoute.navigate('/')
+        }
+      })
     }
 
     if ($target.data.btn === 'exit') {

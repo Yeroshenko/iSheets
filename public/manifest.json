@@ -1,7 +1,7 @@
 {
   "name": "iSheets",
   "short_name": "iSheets",
-  "theme_color": "#3c74ff",
+  "theme_color": "#1890FF",
   "background_color": "#ebebeb",
   "display": "standalone",
   "Scope": "/",
