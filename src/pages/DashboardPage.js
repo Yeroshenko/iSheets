@@ -1,7 +1,7 @@
 import { $ } from '@core/Dom'
-import { Page } from '@core/Page'
+import { Page } from '@core/page/Page'
 import plusIcon from '@/assets/icons/plus.svg'
-import { getAllRecords } from './dashboard.functions'
+import { getAllRecords } from './common/dashboard.functions'
 
 export class DashboardPage extends Page {
   getRoot() {

@@ -1,22 +1,24 @@
-import { Page } from '@core/Page'
-import { storage, debounce } from '@core/utils'
+import { Page } from '@core/page/Page'
 import { createStore } from '@core/store/createStore'
 import { rootReducer } from '@store/rootReducer'
 import { normalizeInitialState } from '@store/initialState'
 import { Spreadsheet, Header, Toolbar, Formula, Tabble } from '@components'
-import { storageName } from './spreadsheet.functions'
+import { StateProcessor } from '@core/page/StateProcessor'
+import { LocalStorageClient } from '@pages/common/LocalStorageClient'
 
 export class SpreadsheetPage extends Page {
-  getRoot() {
-    const params = this.params ? this.params : Date.now().toString()
-    const state = storage(storageName(params))
+  constructor(param) {
+    super(param)
+
+    this.storeSub = null
+    this.processor = new StateProcessor(new LocalStorageClient(this.params))
+  }
+
+  async getRoot() {
+    const state = await this.processor.get()
     const store = createStore(rootReducer, normalizeInitialState(state))
 
-    const stateListener = debounce(state => {
-      storage(storageName(params), state)
-    }, 300)
-
-    store.subscribe(stateListener)
+    this.storeSub = store.subscribe(this.processor.listen)
 
     this.spreadsheet = new Spreadsheet({
       components: [Header, Toolbar, Formula, Tabble],
@@ -32,5 +34,6 @@ export class SpreadsheetPage extends Page {
 
   destroy() {
     this.spreadsheet.destroy()
+    this.storeSub.unsubscribe()
   }
 }
