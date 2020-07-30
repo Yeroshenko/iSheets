@@ -4,7 +4,7 @@ export function Loader() {
   return $.create('div', 'loader').html(
     `
       <div class='loading'>
-        <p>Loading</p>
+        <p>Загрузка</p>
         <span></span>
       </div>
     `

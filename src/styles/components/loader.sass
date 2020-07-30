@@ -1,8 +1,6 @@
 @import '../_variables'
 
 
-$c-01: #5389a6
-$c-02: #a6dcee
 
 
 .loader
@@ -13,108 +11,97 @@ $c-02: #a6dcee
   align-items: center
 
   .loading
-    width: 80px
-    height: 50px
+    width: 100px
+    height: 60px
     position: relative
 
+    // text
     p
       top: 0
       padding: 0
       margin: 0
-      color: $c-01
-      animation: text 3.5s ease both infinite
-      // font-size: 12px
+      font-size: 16px
       letter-spacing: 1px
+      color: $blue
+      animation: text 3.5s ease both infinite
 
       @keyframes text
         0%
           letter-spacing: 1px
           transform: translateX(0px)
 
-
         40%
-          letter-spacing: 2px
-          transform: translateX(26px)
-
+          letter-spacing: 3px
+          transform: translateX(18px)
 
         80%
           letter-spacing: 1px
-          transform: translateX(32px)
-
+          transform: translateX(24px)
 
         90%
-          letter-spacing: 2px
+          letter-spacing: 3px
           transform: translateX(0px)
-
 
         100%
           letter-spacing: 1px
           transform: translateX(0px)
 
-
-
+    // loader (background)
     span
-      background-color: $c-01
+      background-color: $blue
       border-radius: 50px
       display: block
-      height: 16px
-      width: 16px
+      height: 18px
+      width: 18px
       bottom: 0
       position: absolute
       transform: translateX(64px)
       animation: loading 3.5s ease both infinite
 
+      // loader (indicator)
       &:before
         position: absolute
         content: ""
         width: 100%
         height: 100%
-        background-color: $c-02
+        background-color: $light-blue
         border-radius: inherit
         animation: loading2 3.5s ease both infinite
 
-
         @keyframes loading
           0%
-            width: 16px
+            width: 18px
             transform: translateX(0px)
-
 
           40%
             width: 100%
             transform: translateX(0px)
 
-
           80%
-            width: 16px
-            transform: translateX(64px)
-
+            width: 18px
+            transform: translateX(80px)
 
           90%
             width: 100%
             transform: translateX(0px)
 
-
           100%
-            width: 16px
+            width: 18px
             transform: translateX(0px)
 
 
         @keyframes loading2
           0%
             transform: translateX(0px)
-            width: 16px
-
+            width: 18px
 
           40%
             transform: translateX(0%)
             width: 80%
 
-
           80%
             width: 100%
             transform: translateX(0px)
-
 
           90%
             width: 80%
@@ -122,7 +109,7 @@ $c-02: #a6dcee
 
           100%
             transform: translateX(0px)
-            width: 16px
+            width: 18px
 
 
 

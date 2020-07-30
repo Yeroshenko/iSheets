@@ -17,7 +17,7 @@ export class LocalStorageClient {
 
       setTimeout(() => {
         resolve(state)
-      }, 2000)
+      }, 200000)
     })
   }
 }
