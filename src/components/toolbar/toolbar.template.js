@@ -1,3 +1,6 @@
+import { toInlineStyles } from '@core/utils'
+import { availableCellFonts, availableCellSizes } from '@/constants'
+
 import alignLeftIcon from '@/assets/icons/align-left.svg'
 import alignRightIcon from '@/assets/icons/align-right.svg'
 import alignCenterIcon from '@/assets/icons/align-center.svg'
@@ -5,10 +8,10 @@ import boldIcon from '@/assets/icons/bold.svg'
 import italicIcon from '@/assets/icons/italic.svg'
 import underlineIcon from '@/assets/icons/underline.svg'
 
-const toButton = button => {
+const _toButton = button => {
   const meta = `
-    data-type='button'
-    data-value='${JSON.stringify(button.value)}'
+  data-type='button'
+  data-value='${JSON.stringify(button.value)}'
   `
 
   return `
@@ -21,39 +24,74 @@ const toButton = button => {
   `
 }
 
+const _createSelect = (placeholder = '', listItems) => `
+    <div class='spreadsheet__toolbar-select'data-type='select-wrap' >
+    <div class='spreadsheet__toolbar-backdrop' data-type='backdrop'></div>
+      <button class='spreadsheet__toolbar-button' data-type='select-button'>
+        ${placeholder}
+      </button>
+      <ul class='spreadsheet__toolbar-dropdown'>${listItems}</ul>
+    </div>
+  `
+
 // { textDecoration: state['textDecoration'] === 'underline' ? 'none' : 'underline' }
 const _createButtonValue = (state, value, active, notActive) => ({
   [value]: state[value] === active ? notActive : active
 })
 
-const _sizeToFontSize = value => JSON.stringify({ fontSize: `${value}px` })
-
-const _toSizeListItem = (size, currentSize) => {
+const _toSelectListItem = ({
+  value,
+  currentValue,
+  dataCreator,
+  applyProperty
+}) => {
   let cls = ''
+  let style = ''
 
-  // debugger
-
-  if (size === parseInt(currentSize)) cls = 'is-active'
+  if (value === parseInt(currentValue)) cls = 'is-active'
+  if (applyProperty) style = toInlineStyles(JSON.parse(dataCreator(value)))
 
   return `
-    <li class='${cls}' data-type='button' data-value='${_sizeToFontSize(size)}'>
-      ${size}
+    <li class='${cls}'
+      data-type='button'
+      data-value='${dataCreator ? dataCreator(value) : ''}'
+      style='${style}'
+    >
+      ${value}
     </li>
   `
 }
 
-const _createSizeSelect = ({ fontSize }, sizes) => {
-  return `
-    <div class='spreadsheet__toolbar-select'data-type='select-wrap' >
-    <div class='spreadsheet__toolbar-backdrop' data-type='backdrop'></div>
-      <button class='spreadsheet__toolbar-button' data-type='select-button'>
-        ${parseInt(fontSize)}
-      </button>
-      <ul class='spreadsheet__toolbar-dropdown'>
-        ${sizes.map(size => _toSizeListItem(size, fontSize)).join('')}
-      </ul>
-    </div>
-  `
+// 16 => fontSize: '16px'
+const _sizeToFontSize = value => JSON.stringify({ fontSize: `${value}px` })
+
+// Roboto => fontFamaily: 'Roboto'
+const _famailyToFontFamaily = value =>
+  JSON.stringify({ fontFamily: `${value}` })
+
+const _createSizeSelect = (currentValue, sizes) => {
+  const items = sizes
+    .map(value =>
+      _toSelectListItem({ value, currentValue, dataCreator: _sizeToFontSize })
+    )
+    .join('')
+
+  return _createSelect(parseInt(currentValue), items)
+}
+
+const _createFontFamilySelect = (currentValue, fontFamilys) => {
+  const items = fontFamilys
+    .map(value =>
+      _toSelectListItem({
+        value,
+        currentValue,
+        dataCreator: _famailyToFontFamaily,
+        applyProperty: true
+      })
+    )
+    .join('')
+
+  return _createSelect(currentValue, items)
 }
 
 export const createToolbar = state => {
@@ -90,10 +128,9 @@ export const createToolbar = state => {
     }
   ]
 
-  const sizes = [12, 13, 14, 15, 16, 17, 18, 19, 20]
-
   return `
-    ${buttons.map(toButton).join('')}
-    ${_createSizeSelect(state, sizes)}
+    ${buttons.map(_toButton).join('')}
+    ${_createSizeSelect(state.fontSize, availableCellSizes)}
+    ${_createFontFamilySelect(state.fontFamily, availableCellFonts)}
   `
 }
