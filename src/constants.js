@@ -5,7 +5,8 @@ export const defaultCellStyles = {
   textAlign: 'left',
   fontWeight: 'normal',
   fontStyle: 'normal',
-  textDecoration: 'none'
+  textDecoration: 'none',
+  fontSize: '14px'
 }
 
 export const defaultCellWidth = 120

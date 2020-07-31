@@ -16,14 +16,9 @@
   display: flex
   height: $row-height
   min-height: $row-height
-  &:first-child
-    position: sticky
-    top: 0
-    z-index: 3
 
 .table__row-info
-  position: sticky
-  left: 0
+  position: relative
   height: 100%
   min-width: $info-cell-width
   display: flex
@@ -33,7 +28,6 @@
   border: 1px solid $grey-100
   border-top: none
   user-select: none
-  z-index: 4
 
 .table__row-data
   display: flex
@@ -57,6 +51,7 @@
   width: $cell-width
   min-width: $table-row-width
   padding: 4px
+  line-height: 1
   border: 1px solid #E2E3E3
   border-top: 0
   border-left: 0

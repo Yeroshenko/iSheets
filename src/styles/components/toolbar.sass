@@ -2,20 +2,64 @@
 @import '../mixins'
 @import '../ui'
 
+$button-size: 32px
+
 .spreadsheet__toolbar
   padding: 8px
   display: flex
   border-bottom: 1px solid $grey-100
 
+.spreadsheet__toolbar-select
+  position: relative
+  z-index: 100
+
+  &.is-open
+    .spreadsheet__toolbar-dropdown, .spreadsheet__toolbar-backdrop
+      display: block
+
+.spreadsheet__toolbar-backdrop
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+
+  display: none
+  z-index: -1
+
 .spreadsheet__toolbar-button
   @extend .button_icon
   @extend .button_transparent
-  min-width: 32px
-  min-height: 32px
+  min-width: $button-size
+  min-height: $button-size
   margin-right: 4px
 
   user-select: none
 
   img
-    // height: 16px
     width: 16px
+
+.spreadsheet__toolbar-dropdown
+  position: absolute
+  top: $button-size + 2px
+  left: 0
+
+  display: none
+  padding: 4px 0
+  list-style: none
+
+  background-color: $white
+  border-radius: 4px
+  box-shadow: 0 2px 6px 2px rgba(60,64,67,.15)
+
+  transition: .2s all ease-in
+
+  li
+    padding: 8px
+
+    &:hover
+      background-color: $grey-100
+      cursor: pointer
+
+    &.is-active
+      background-color: $grey-300

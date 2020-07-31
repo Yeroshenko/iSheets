@@ -55,6 +55,10 @@ class Dom {
     return this.$el.dataset
   }
 
+  get parent() {
+    return this.$el.parentNode
+  }
+
   id(parse) {
     if (parse) {
       const parsed = this.id().split(':')
@@ -101,6 +105,11 @@ class Dom {
 
   addClass(className) {
     this.$el.classList.add(className)
+    return this
+  }
+
+  toggleClass(className) {
+    this.$el.classList.toggle(className)
     return this
   }
 

@@ -34,12 +34,17 @@ export class Toolbar extends SpreadsheetState {
 
   onClick(e) {
     const $target = $(e.target)
-    if ($target.data.type === 'button') {
+    const dataType = $target.data.type
+
+    if (dataType === 'button') {
       const value = JSON.parse($target.data.value)
       this.$emit('toolbar:applyStyle', value)
+    }
 
-      // const key = Object.keys(value)[0]
-      // this.setState({ [key]: value[key] })
+    //  select wrap because .spreadsheet__toolbar-button has margin-right: 4px
+    if (dataType === 'select-button' || 'backdrop' || 'select-wrap') {
+      $target.toggleClass('active')
+      $($target.parent).toggleClass('is-open')
     }
   }
 }

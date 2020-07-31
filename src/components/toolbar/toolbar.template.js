@@ -26,6 +26,36 @@ const _createButtonValue = (state, value, active, notActive) => ({
   [value]: state[value] === active ? notActive : active
 })
 
+const _sizeToFontSize = value => JSON.stringify({ fontSize: `${value}px` })
+
+const _toSizeListItem = (size, currentSize) => {
+  let cls = ''
+
+  // debugger
+
+  if (size === parseInt(currentSize)) cls = 'is-active'
+
+  return `
+    <li class='${cls}' data-type='button' data-value='${_sizeToFontSize(size)}'>
+      ${size}
+    </li>
+  `
+}
+
+const _createSizeSelect = ({ fontSize }, sizes) => {
+  return `
+    <div class='spreadsheet__toolbar-select'data-type='select-wrap' >
+    <div class='spreadsheet__toolbar-backdrop' data-type='backdrop'></div>
+      <button class='spreadsheet__toolbar-button' data-type='select-button'>
+        ${parseInt(fontSize)}
+      </button>
+      <ul class='spreadsheet__toolbar-dropdown'>
+        ${sizes.map(size => _toSizeListItem(size, fontSize)).join('')}
+      </ul>
+    </div>
+  `
+}
+
 export const createToolbar = state => {
   const buttons = [
     {
@@ -60,7 +90,10 @@ export const createToolbar = state => {
     }
   ]
 
+  const sizes = [12, 13, 14, 15, 16, 17, 18, 19, 20]
+
   return `
     ${buttons.map(toButton).join('')}
+    ${_createSizeSelect(state, sizes)}
   `
 }
