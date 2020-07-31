@@ -42,9 +42,15 @@ export class Toolbar extends SpreadsheetState {
     }
 
     //  select wrap because .spreadsheet__toolbar-button has margin-right: 4px
-    if (dataType === 'select-button' || 'backdrop' || 'select-wrap') {
-      $target.toggleClass('active')
-      $($target.parent).toggleClass('is-open')
+    if (
+      dataType === 'select-button' ||
+      dataType === 'backdrop' ||
+      dataType === 'select-wrap'
+    ) {
+      $($target.parent)
+        .toggleClass('is-open')
+        .find(`[data-type='select-button']`)
+        .toggleClass('active')
     }
   }
 }
