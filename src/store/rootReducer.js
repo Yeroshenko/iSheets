@@ -3,7 +3,7 @@ import {
   CHANGE_TEXT,
   CHANGE_STYLES,
   APPLY_STYLE,
-  CHANGE_TITILE,
+  CHANGE_TITLE,
   UPDATE_LAST_OPENED
 } from './types'
 
@@ -43,7 +43,7 @@ export const rootReducer = (state, action) => {
         currentStyles: { ...state.currentStyles, ...action.data.value }
       }
 
-    case CHANGE_TITILE:
+    case CHANGE_TITLE:
       return { ...state, title: action.data }
 
     case UPDATE_LAST_OPENED:

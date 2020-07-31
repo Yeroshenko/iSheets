@@ -9,7 +9,7 @@ import { createTable } from './table.template'
 import { resizeHandler } from './table.resize'
 import { shouldResize, isCell, matrix, nextSelector } from './table.functions'
 
-export class Tabble extends SpreadsheetComponent {
+export class Table extends SpreadsheetComponent {
   static className = 'spreadsheet__table'
 
   constructor($root, options) {

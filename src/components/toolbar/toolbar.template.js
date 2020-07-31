@@ -25,7 +25,7 @@ const _toButton = button => {
 }
 
 const _createSelect = (placeholder = '', listItems) => `
-    <div class='spreadsheet__toolbar-select'data-type='select-wrap' >
+    <div class='spreadsheet__toolbar-select' data-type='select-wrap' >
     <div class='spreadsheet__toolbar-backdrop' data-type='backdrop'></div>
       <button class='spreadsheet__toolbar-button' data-type='select-button'>
         ${placeholder}
@@ -65,9 +65,8 @@ const _toSelectListItem = ({
 // 16 => fontSize: '16px'
 const _sizeToFontSize = value => JSON.stringify({ fontSize: `${value}px` })
 
-// Roboto => fontFamaily: 'Roboto'
-const _famailyToFontFamaily = value =>
-  JSON.stringify({ fontFamily: `${value}` })
+// Roboto => fontFamily: 'Roboto'
+const _familyToFontFamily = value => JSON.stringify({ fontFamily: `${value}` })
 
 const _createSizeSelect = (currentValue, sizes) => {
   const items = sizes
@@ -79,13 +78,13 @@ const _createSizeSelect = (currentValue, sizes) => {
   return _createSelect(parseInt(currentValue), items)
 }
 
-const _createFontFamilySelect = (currentValue, fontFamilys) => {
-  const items = fontFamilys
+const _createFontFamilySelect = (currentValue, fonts) => {
+  const items = fonts
     .map(value =>
       _toSelectListItem({
         value,
         currentValue,
-        dataCreator: _famailyToFontFamaily,
+        dataCreator: _familyToFontFamily,
         applyProperty: true
       })
     )
