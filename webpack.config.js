@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 
 const isProd = process.env.NODE_ENV === 'production'
 const isDev = !isProd
@@ -76,6 +77,15 @@ module.exports = {
               reloadAll: true
             }
           },
+          {
+            loader: 'cache-loader',
+            options: {
+              cacheDirectory: path.resolve(
+                __dirname,
+                'node_modules/.cache/cache-loader'
+              )
+            }
+          },
           'css-loader',
           'sass-loader'
         ]
@@ -96,6 +106,15 @@ module.exports = {
           }
         ]
       }
+    ]
+  },
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        cache: true,
+        parallel: true
+      })
     ]
   }
 }

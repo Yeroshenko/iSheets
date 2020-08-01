@@ -48,7 +48,9 @@ const _toSelectListItem = ({
   let cls = ''
   let style = ''
 
-  if (value === parseInt(currentValue)) cls = 'is-active'
+  if (value === parseInt(currentValue) || value === currentValue)
+    cls = 'is-active'
+
   if (applyProperty) style = toInlineStyles(JSON.parse(dataCreator(value)))
 
   return `
