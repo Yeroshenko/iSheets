@@ -39,10 +39,19 @@ $button-size: 32px
   img
     width: 16px
 
+  &.font-select__btn
+    display: block
+    max-width: 110px
+    text-align: left
+
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+
 .spreadsheet__toolbar-dropdown
   position: absolute
   top: $button-size + 2px
-  left: 0
+  right: 4px
 
   display: none
   padding: 4px 0

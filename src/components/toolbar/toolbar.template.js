@@ -24,15 +24,24 @@ const _toButton = button => {
   `
 }
 
-const _createSelect = (placeholder = '', listItems) => `
-    <div class='spreadsheet__toolbar-select' data-type='select-wrap' >
-    <div class='spreadsheet__toolbar-backdrop' data-type='backdrop'></div>
-      <button class='spreadsheet__toolbar-button' data-type='select-button'>
+const _createSelect = (placeholder = '', listItems, classes = {}) => {
+  const cls = {
+    select: `spreadsheet__toolbar-select  ${classes.select || ''}`,
+    backdrop: `spreadsheet__toolbar-backdrop ${classes.backdrop || ''}`,
+    button: `spreadsheet__toolbar-button ${classes.button || ''}`,
+    dropdown: `spreadsheet__toolbar-dropdown ${classes.dropdown || ''}`
+  }
+
+  return `
+    <div class='${cls.select}' data-type='select-wrap' >
+    <div class='${cls.backdrop}' data-type='backdrop'></div>
+      <button class='${cls.button}' data-type='select-button'>
         ${placeholder}
       </button>
-      <ul class='spreadsheet__toolbar-dropdown'>${listItems}</ul>
+      <ul class='${cls.dropdown}'>${listItems}</ul>
     </div>
   `
+}
 
 // { textDecoration: state['textDecoration'] === 'underline' ? 'none' : 'underline' }
 const _createButtonValue = (state, value, active, notActive) => ({
@@ -92,7 +101,7 @@ const _createFontFamilySelect = (currentValue, fonts) => {
     )
     .join('')
 
-  return _createSelect(currentValue, items)
+  return _createSelect(currentValue, items, { button: 'font-select__btn' })
 }
 
 export const createToolbar = state => {
