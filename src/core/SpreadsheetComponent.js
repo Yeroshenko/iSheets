@@ -15,7 +15,7 @@ export class SpreadsheetComponent extends DomListener {
   // setup component before init
   prepare() {}
 
-  // retur tamplates
+  // return templates
   toHTML() {
     return ''
   }

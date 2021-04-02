@@ -6,3 +6,4 @@ build
 
 # IDE
 .vscode
+.idea
