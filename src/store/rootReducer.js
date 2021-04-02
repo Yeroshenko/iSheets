@@ -1,11 +1,4 @@
-import {
-  TABLE_RESIZE,
-  CHANGE_TEXT,
-  CHANGE_STYLES,
-  APPLY_STYLE,
-  CHANGE_TITLE,
-  UPDATE_LAST_OPENED
-} from './types'
+import { APPLY_STYLE, CHANGE_STYLES, CHANGE_TEXT, CHANGE_TITLE, TABLE_RESIZE, UPDATE_LAST_OPENED } from './types'
 
 export const rootReducer = (state, action) => {
   let field
@@ -56,6 +49,10 @@ export const rootReducer = (state, action) => {
 
 const value = (state, field, action) => {
   const val = state[field] || {}
-  val[action.data.id] = action.data.value
+
+  action.data.value
+    ? val[action.data.id] = action.data.value
+    : delete val[action.data.id]
+
   return val
 }

@@ -34,4 +34,12 @@ export class TableSelection {
   applyStyle(style) {
     this.group.map($el => $el.css(style))
   }
+
+  setValue(value) {
+    this.group.map($cell => $cell.text(value))
+  }
+
+  setAttr(name, value) {
+    this.group.map($cell => $cell.attr(name, value))
+  }
 }

@@ -7,7 +7,7 @@ import * as actions from '@store/actions'
 import { TableSelection } from './TableSelection'
 import { createTable } from './table.template'
 import { resizeHandler } from './table.resize'
-import { shouldResize, isCell, matrix, nextSelector } from './table.functions'
+import { isCell, matrix, nextSelector, shouldResize } from './table.functions'
 
 export class Table extends SpreadsheetComponent {
   static className = 'spreadsheet__table'
@@ -15,7 +15,7 @@ export class Table extends SpreadsheetComponent {
   constructor($root, options) {
     super($root, {
       name: 'Table',
-      listeners: ['mousedown', 'keydown', 'input'],
+      listeners: ['mousedown', 'keydown', 'input', 'mouseover', 'mouseup'],
       ...options
     })
   }
@@ -68,6 +68,35 @@ export class Table extends SpreadsheetComponent {
     }
   }
 
+
+  updateTextInState(value) {
+    const id = this.selection.current.id()
+
+    this.$dispatch(actions.changeText({ id, value }))
+  }
+
+  clearTextsInState() {
+    this.selection.group.map($cell => {
+      const id = $cell.id()
+      this.$dispatch(actions.changeText({ id, value: '' }))
+    })
+  }
+
+  updateDataValue($target) {
+    $target.attr('data-value', $target.text())
+  }
+
+  clearValues() {
+    this.selection.setAttr('data-value', '')
+    this.selection.setValue('')
+    this.clearTextsInState()
+  }
+
+  getSelectedCells(target) {
+    return matrix(target, this.selection.current)
+      .map(id => this.$root.find(`[data-id='${id}']`))
+  }
+
   onMousedown(event) {
     if (shouldResize(event)) {
       this.resizeTable(event)
@@ -77,30 +106,35 @@ export class Table extends SpreadsheetComponent {
       const $target = $(event.target)
 
       if (event.shiftKey) {
-        const $cells = matrix($target, this.selection.current).map(id =>
-          this.$root.find(`[data-id='${id}']`)
-        )
+        const $cells = this.getSelectedCells($target)
 
         this.selection.selectGroup($cells)
       } else {
+        this.mouseIsDown = true
         this.selectCell($target)
       }
     }
   }
 
+  onMouseover(event) {
+    if (this.mouseIsDown && isCell(event)) {
+      const $cells = this.getSelectedCells($(event.target))
+
+      this.selection.selectGroup($cells)
+    }
+  }
+
+  onMouseup() {
+    this.mouseIsDown = false
+  }
+
   onKeydown(event) {
-    const keys = [
-      'Enter',
-      'Tab',
-      'ArrowLeft',
-      'ArrowRight',
-      'ArrowDown',
-      'ArrowUp'
-    ]
+    const navigationKeys = ['Enter', 'Tab', 'ArrowLeft', 'ArrowRight', 'ArrowDown', 'ArrowUp']
+    const removeKeys = ['Delete']
 
     const { key } = event
 
-    if (keys.includes(key) && !event.shiftKey) {
+    if (navigationKeys.includes(key) && !event.shiftKey) {
       event.preventDefault()
 
       const id = this.selection.current.id(true)
@@ -108,16 +142,11 @@ export class Table extends SpreadsheetComponent {
 
       this.selectCell($next)
     }
-  }
 
-  updateTextInState(value) {
-    const id = this.selection.current.id()
-
-    this.$dispatch(actions.changeText({ id, value }))
-  }
-
-  updateDataValue($target) {
-    $target.attr('data-value', $target.text())
+    if (removeKeys.includes(key)) {
+      event.preventDefault()
+      this.clearValues()
+    }
   }
 
   onInput(event) {
